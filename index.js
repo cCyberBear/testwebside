@@ -13,7 +13,7 @@ const limiter = rateLimit({
   windowMs: 10 * 60 * 1000, // 10 Mins
   max: 100,
 });
-app.use(limiter);
+// app.use(limiter);
 app.set("trust proxy", 1);
 
 // Enable cors
@@ -23,7 +23,7 @@ app.use(cors());
 app.use(express.static("public"));
 
 // Routes
-app.use("/api", require("./routes"));
+app.use("/scrath", require("./routes"));
 
 // Error handler middleware
 app.use(errorHandler);

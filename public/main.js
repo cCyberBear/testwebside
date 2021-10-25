@@ -3,25 +3,25 @@ const weatherForm = document.querySelector("#weather-form");
 const cityInput = document.querySelector("#city-input");
 
 // Fetch weather data from API
-const fetchWeather = async (city) => {
-  const url = `/api?q=${city}`;
+const fecthSymbol = async (Symbol) => {
+  const url = `/scrath?word=${Symbol}`;
 
   const res = await fetch(url);
   const data = await res.json();
 
-  if (data.cod === "404") {
-    alert("City not found");
+  if (data.cod === 404) {
+    alert("Symbol not found");
     return;
   }
 
-  if (data.cod === 401) {
-    alert("Invalid API Key");
-    return;
-  }
+  // if (data.cod === 401) {
+  //   alert("Invalid API Key");
+  //   return;
+  // }
 
   const displayData = {
-    city: data.name,
-    temp: kelvinToCel(data.main.temp),
+    name: data.data.name,
+    lastPrice: data.data.lastPrice,
   };
 
   addWeatherToDOM(displayData);
@@ -30,26 +30,25 @@ const fetchWeather = async (city) => {
 // Add display data to DOM
 const addWeatherToDOM = (data) => {
   weatherDisplay.innerHTML = `
-    <h1>Weather in ${data.city}</h1>
-    <h2>${data.temp} &deg;C</h2>
+    <h1>${data.name}</h1>
+    <h2>${data.lastPrice} </h2>
   `;
   cityInput.value = "";
 };
 
-const kelvinToCel = (temp) => {
-  return Math.ceil(temp - 273.15);
-};
+// const kelvinToCel = (temp) => {
+//   return Math.ceil(temp - 273.15);
+// };
 
 // Event listener for form submission
 weatherForm.addEventListener("submit", (e) => {
   e.preventDefault();
-
   if (cityInput.value === "") {
-    alert("Please enter a city");
+    alert("Please enter a Symbol");
   } else {
-    fetchWeather(cityInput.value);
+    fecthSymbol(cityInput.value);
   }
 });
 
 // Initial fetch
-fetchWeather("Ho Chi Minh");
+fecthSymbol("VND");
